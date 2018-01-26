@@ -1,0 +1,24 @@
+name: sava:1.0
+gateways:
+  9050: sava/webport
+clusters:
+  sava:
+    services:
+      breed:
+        name: sava:1.0.0
+        deployable: magneticio/sava:1.0.0
+        ports:
+          webport: 8080/http
+      scale:
+        cpu: 0.2       
+        memory: 100MB
+        instances: 1
+      dialects:
+        kubernetes:
+          nodeName: virtual-kubelet-vampk8s-aci-linux
+      health_checks:
+        initial_delay: 10s
+        port: webport
+        timeout: 5s
+        interval: 10s
+        failures: 10     

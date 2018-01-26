@@ -1,0 +1,24 @@
+name: iis:1.0
+gateways:
+  80: iis/webport
+clusters:
+  iis:
+    services:
+      breed:
+        name: iis:1.0.0
+        deployable: microsoft/iis:windowsservercore
+        ports:
+          webport: 80/http
+      scale:
+        cpu: 1     
+        memory: 1000MB
+        instances: 1
+      dialects:
+        kubernetes:
+          nodeName: virtual-kubelet-vampk8s-aci-win
+      health_checks:
+        initial_delay: 10s
+        port: webport
+        timeout: 5s
+        interval: 10s
+        failures: 10     
